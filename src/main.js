@@ -6,7 +6,7 @@ import Vue from 'vue'
 import {Time} from './time'
 
 //requisição usado para importar style
-require("style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css");
+require("style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css")
 //requisiçnao usado para importar o bootstrap
 require('bootstrap')
 
