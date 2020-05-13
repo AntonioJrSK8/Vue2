@@ -11,3 +11,5 @@ yarn-error.log
 *.njsproj
 *.sln
 package-lock.json
+vue2-master.zip
+vue2-master/
