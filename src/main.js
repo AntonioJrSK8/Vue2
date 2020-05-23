@@ -14,6 +14,7 @@ require('bootstrap')
 var exemplo = new Vue({
   el: "#app",
   data: {
+
     titulo: "Exemplo de Prop bind",
     bool: true,
     numeroInteiro: 10,
