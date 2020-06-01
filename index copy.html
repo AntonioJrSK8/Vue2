@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>vue2</title>
+  </head>
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+  <body>
+    <div id="app">
+      <h3>{{ titulo }}</h3>
+
+      <li :id="numeroInteiro">{{ numeroInteiro }}</li>
+      <li v-bind:id="numeroFloat">{{ numeroFloat }}</li>
+
+      <ul>
+        <li  v-for="time in times">
+          {{ time.nome }} <img :src="time.escudo">
+        </li>
+      </ul>
+
+      <ul>
+        <li v-for="(time, index) in times">
+          [{{ index+1 }}] - {{ time.nome }} <img :src="time.escudo">
+        </li>
+      </ul>
+
+      <ul>
+        <li  v-for="x in 5">
+          {{ x }}
+        </li>
+      </ul>
+
+      <ul>
+        <li v-for="(valor, chave, index) in alfabero" :key="index">
+         indice: {{ index }} | chave: {{ chave }} | valor: {{ valor }}
+        </li>
+      </ul>
+
+    </div>
+
+    <script src="/dist/build.js"></script>
+  </body>
+</html>

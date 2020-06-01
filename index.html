@@ -6,37 +6,33 @@
   </head>
   <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
   <body>
-
     <div id="app">
-      <h3>{{ titulo }}</h3>
-
-      <li :id="numeroInteiro">{{ numeroInteiro }}</li>
-      <li v-bind:id="numeroFloat">{{ numeroFloat }}</li>
-
-      <ul>
-        <li  v-for="time in times">
-          {{ time.nome }} <img :src="time.escudo">
-        </li>
-      </ul>
-
-      <ul>
-        <li v-for="(time, index) in times">
-          [{{ index+1 }}] - {{ time.nome }} <img :src="time.escudo">
-        </li>
-      </ul>
-
-      <ul>
-        <li  v-for="x in 5">
-          {{ x }}
-        </li>
-      </ul>
-
-      <ul>
-        <li v-for="(valor, chave, index) in alfabero" :key="index">
-         indice: {{ index }} | chave: {{ chave }} | valor: {{ valor }}
-        </li>
-      </ul>
-
+      <div class="container">
+        <h3>{{ titulo }}</h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Pontos</th>
+              <th>Gols Marcados</th>
+              <th>Gols Sofridos</th>
+              <th>Saldo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(time, index) in times">
+              <td>
+                <img :src="time.escudo" style="height: 30px; width: 30px;">
+                <strong>[{{ index+1 }}] - {{ time.nome }} </strong>
+              </td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <script src="/dist/build.js"></script>
