@@ -12,4 +12,6 @@ yarn-error.log
 *.sln
 package-lock.json
 vue2-master.zip
-vue2-master/
+vue2-master/*.*
+vue2-master/*.js
+vue2-master/main.js

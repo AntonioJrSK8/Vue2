@@ -1,21 +1,29 @@
 // @ts-nocheck
-import Vue from 'vue'
+import Vue from "vue";
 //import App from './App.vue'
+import _ from "lodash";
 
 //Importando a classe ES2015
-import {Time} from './time'
+import { Time } from "./time";
 
 //requisição usado para importar style
-require("style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css")
+require("style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css");
 //requisiçnao usado para importar o bootstrap
-require('bootstrap')
+require("bootstrap");
 
-
-var exemplo = new Vue({
+var meuVue = new Vue({
   el: "#app",
+
   data: {
     titulo: "Campenato Brasileiro Série - A",
+    colunas: ["nome", "pontos", "gm", "gs", "saldo"],
 
+    order: {
+      keys: ["pontos", "gm", "gs"],
+      sort: ["desc", "desc", "asc"]
+    },
+
+    view: "tabela",
     times: [
       new Time("Palmeiras", require("./assets/palmeiras_60x60.png")),
       new Time("Flamengo", require("./assets/flamengo_60x60.png")),
@@ -40,28 +48,58 @@ var exemplo = new Vue({
     ],
 
     novoJogo: {
-      casa : {
+      casa: {
         time: null,
         gols: 0
       },
-      fora : {
+      fora: {
         time: null,
         gols: 0
       }
     }
   },
 
+  methods: {
+    fimJogo() {
+      let timeAdversario = this.novoJogo.fora.time;
+      let gols = +this.novoJogo.casa.gols;
+      let golsAdversario = +this.novoJogo.fora.gols;
+      this.novoJogo.casa.time.fimJogo(timeAdversario, gols, golsAdversario);
+      this.showView("tabela");
+    },
 
-    created(){
+    createNovoJogo() {
       let indexCasa = Math.floor(Math.random() * 20),
-          indexFora = Math.floor(Math.random() * 20);
-          console.log(indexCasa);
+        indexFora = Math.floor(Math.random() * 20);
+
       this.novoJogo.casa.time = this.times[indexCasa];
       this.novoJogo.casa.gols = 0;
       this.novoJogo.fora.time = this.times[indexFora];
       this.novoJogo.fora.gols = 0;
+      this.showView("novoJogo");
+    },
+
+    showView(view) {
+      this.view = view;
+    },
+    sortBy(coluna) {
+      this.order.keys = coluna;
+      this.order.sort = this.order.sort == "desc" ? "asc" : "desc";
     }
+  },
 
+  computed: {
+    timesFiltered() {
+      return _.orderBy(this.times, this.order.keys, this.order.sort);
+    }
+  },
 
-  //render: h => h(App)
+  filters: {
+    saldo(time) {
+      return time.gm - time.gs;
+    },
+    ucwords(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+  }
 });

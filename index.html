@@ -8,56 +8,54 @@
   <body>
     <div id="app">
       <div class="container">
-          <div class="row">
-            <h3>{{ titulo }}</h3>
+          <h3>{{ titulo }}</h3>
+          <a class="btn btn-primary" @click.prevent="createNovoJogo">Novo Jogo</a>
+          <br><br>
+          <div v-if="view == 'tabela'">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Time</th>
-                  <th>Pontos</th>
-                  <th>Gols Marcados</th>
-                  <th>Gols Sofridos</th>
-                  <th>Saldo</th>
+                  <th v-for="col in colunas" :key="col.nome">
+                    <a @click="sortBy(col)"> {{col | ucwords}} </a>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(time, index) in times">
+                <tr v-for="(time, index) in timesFiltered">
                   <td>
                     <img :src="time.escudo" style="height: 30px; width: 30px;">
                     <strong>[{{ index+1 }}] - {{ time.nome }} </strong>
                   </td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
+                  <td>{{ time.pontos }}</td>
+                  <td>{{ time.gm }}</td>
+                  <td>{{ time.gs }}</td>
+                  <td>{{ time | saldo }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="row">
-          <form class="form-inline">
-
-            <div class="form-group">
-              <input type="text" class="form-control" v-model="novoJogo.casa.gols" >
-              <label class="control-label">
-                {{novoJogo.casa.time.nome}}
-                <img :src="novoJogo.casa.time.escudo" style="height: 30px; width: 30px;">
-              </label>
-            </div>
-            <span> X </span>
-            <div class="form-group">
-              <label class="control-label">
-                <img :src="novoJogo.fora.time.escudo" style="height: 30px; width: 30px;">
-                {{novoJogo.fora.time.nome}}
-              </label>
-              <input type="text" class="form-control" v-model="novoJogo.fora.gols">
-            </div>
-            <button type="button" class="btn btn-primary" >Fim de jogo</button>
-          </form>
+          <div v-if="view == 'novoJogo'">
+            <form class="form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control" v-model="novoJogo.casa.gols" @keyup.enter="fimJogo">
+                <label class="control-label">
+                  {{novoJogo.casa.time.nome}}
+                  <img :src="novoJogo.casa.time.escudo" style="height: 30px; width: 30px;">
+                </label>
+              </div>
+              <span> X </span>
+              <div class="form-group">
+                <label class="control-label">
+                  <img :src="novoJogo.fora.time.escudo" style="height: 30px; width: 30px;">
+                  {{novoJogo.fora.time.nome}}
+                </label>
+                <input type="text" class="form-control" v-model="novoJogo.fora.gols" @keyup.enter="fimJogo">
+              </div>
+              <button type="button" class="btn btn-primary" @click="fimJogo" >Fim de jogo</button>
+            </form>
           </div>
-
-          <div class="row"><hr></div>
       </div>
+
     </div>
 
     <script src="/dist/build.js"></script>
