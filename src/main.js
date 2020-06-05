@@ -1,6 +1,10 @@
 // @ts-nocheck
 import Vue from "vue";
 //import App from './App.vue'
+
+/**
+ * usando o lodash foi importado usando npm install lodash
+ */
 import _ from "lodash";
 
 //Importando a classe ES2015
